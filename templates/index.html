@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Engine</title>
+    <link rel="stylesheet" href="/static/styles.css"></head>
+<body>
+    <h2>Search Engine</h2><br>
+    <div class="engine">
+    <form id="engine" method="post" action = "">
+        <label><b>Input Text</b>
+        </label>
+        <input type="text" name="input_text" id="input_text" value="{{input_text}}">
+        <input type="submit" name="search" id="search" value="Search">
+        <br><br>
+    </form>
+    {% if sentiment_label %}
+        <p id="sentiment_label">{{selected_model}} model predicted: {{ sentiment_label }}</p>
+
+    {% endif %}
+</div>
+</body>
+</html>
