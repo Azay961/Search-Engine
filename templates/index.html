@@ -6,16 +6,20 @@
 <body>
     <h2>Search Engine</h2><br>
     <div class="engine">
-    <form id="engine" method="post" action = "">
+    <form id="engine" method="post" action = "/search">
         <label><b>Input Text</b>
         </label>
         <input type="text" name="input_text" id="input_text" value="{{input_text}}">
         <input type="submit" name="search" id="search" value="Search">
         <br><br>
     </form>
-    {% if sentiment_label %}
-        <p id="sentiment_label">{{selected_model}} model predicted: {{ sentiment_label }}</p>
-
+    {% if results %}
+        {% for dictionary in results["metadatas"][0]%}
+            {% for key, value in dictionary.items() %}
+                <p id="name_label">{{key}}</p>
+                <p id="subtitle_label">{{' '.join(value.split()[:50])}}  .....</p><br><br>
+            {% endfor %}  
+        {% endfor %}
     {% endif %}
 </div>
 </body>

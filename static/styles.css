@@ -6,8 +6,8 @@ body
     font-family: 'Arial';
 }
 .engine{
-        width: 350px;
-        height: 500px;
+        width: 400px;
+        height: 800px;
         overflow: hidden;
         margin: auto;
         margin: 20 0 0 450px;
@@ -42,7 +42,13 @@ label{
     color: blue;
     margin-top: 10px;
 }
-#sentiment_label{
-    text-align: center;
+#name_label{
+    text-align: left;
+    color: white;
+    font-weight: bold;
+}
+
+#subtitle_label{
+    text-align: left;
     color: white;
 }
