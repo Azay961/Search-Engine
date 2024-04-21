@@ -1,29 +1,13 @@
 from flask import Flask, render_template, request
-from functions import *
-import pandas as pd
 import chromadb
-import ast
 
-path = "D:/my computer/Downloads/data.csv"
-df = pd.read_csv(path)
+path = "D:/my computer/Downloads/chromaDB"
 
-def chroma_store(ids, names, subtitles, embeddings):
-  chroma_client = chromadb.Client()
-  collection = chroma_client.create_collection(name="my_collection")
-
-  collection.add(
-    # embeddings=[embedding for embedding in embeddings],
-    embeddings = [ast.literal_eval(embedding) if isinstance(embedding, str) else embedding for embedding in embeddings],
-    documents=[f'doc{n}' for n in range(len(ids))],
-    metadatas = [{name: subtitle} for name, subtitle in zip(names, subtitles)],
-    ids=[str(id) for id in ids]
-  )
-  return collection
-
-collection = chroma_store(df["ID"].tolist(), df["Name"].tolist(), df["Subtitle"].tolist(), df["embeddings"].tolist())
-
-
-
+chroma_client = chromadb.PersistentClient(path=path)
+collection = chroma_client.get_collection(
+        name="my_collection3"
+        # metadata={"hnsw:space": "cosine"} # l2 is the default
+    )
 
 
 
@@ -38,10 +22,11 @@ def home():
 def search():
     if request.method == 'POST':
         query = request.form.get("input_text")
-        query_embedding = extract_embeddings("Iron man").numpy()[0]
+        # query_embedding = extract_embeddings(query).detach().numpy() # converting torch array to numpy and extracting 1D array
         results = collection.query(
-            query_embeddings=[query_embedding.tolist()],
-            n_results=2,
+            # query_embeddings=[query_embedding.tolist()],
+            query_texts = [query],
+            n_results=5,
         )
    
         return render_template('index.html', query=query, results=results)
