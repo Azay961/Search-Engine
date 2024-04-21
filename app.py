@@ -22,9 +22,7 @@ def home():
 def search():
     if request.method == 'POST':
         query = request.form.get("input_text")
-        # query_embedding = extract_embeddings(query).detach().numpy() # converting torch array to numpy and extracting 1D array
         results = collection.query(
-            # query_embeddings=[query_embedding.tolist()],
             query_texts = [query],
             n_results=5,
         )
