@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 import chromadb
 
-path = "D:/Laptop/Downloads/chromaDB"
+path = "D:/Laptop/Downloads/data/chromaDB"
 
 chroma_client = chromadb.PersistentClient(path=path)
 collection = chroma_client.get_collection(
